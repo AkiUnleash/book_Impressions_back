@@ -1,8 +1,8 @@
 package main
 
 import (
-	"jwt/domain/database"
-	"jwt/domain/routing"
+	"srb/domain/database"
+	"srb/domain/routing"
 )
 
 // @title JWT-login-example

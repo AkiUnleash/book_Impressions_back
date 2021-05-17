@@ -2,8 +2,8 @@ package database
 
 import (
 	"fmt"
-	"jwt/config"
-	"jwt/domain/models"
+	"srb/config"
+	"srb/domain/models"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"

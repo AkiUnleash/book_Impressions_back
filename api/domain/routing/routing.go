@@ -1,11 +1,11 @@
 package routing
 
 import (
-	"jwt/repositories/controllers"
+	"srb/repositories/controllers"
 
 	_ "github.com/go-sql-driver/mysql"
 
-	_ "jwt/docs"
+	_ "srb/docs"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"

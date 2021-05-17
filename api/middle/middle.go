@@ -1,8 +1,8 @@
 package middle
 
 import (
-	"jwt/until/cookie"
-	"jwt/until/jwt"
+	"srb/until/cookie"
+	"srb/until/jwt"
 
 	"github.com/labstack/echo/v4"
 )

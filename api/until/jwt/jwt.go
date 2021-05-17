@@ -1,10 +1,10 @@
 package jwt
 
 import (
-	"jwt/config"
+	"srb/config"
 	"time"
 
-	"jwt/domain/models"
+	"srb/domain/models"
 
 	"github.com/labstack/echo/v4"
 
