@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"jwt/domain/database"
-	"jwt/domain/models"
-	"jwt/middle"
 	"net/http"
+	"srb/domain/database"
+	"srb/domain/models"
+	"srb/middle"
 
 	"github.com/labstack/echo/v4"
 )

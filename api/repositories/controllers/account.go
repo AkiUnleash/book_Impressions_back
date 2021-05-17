@@ -1,13 +1,13 @@
 package controllers
 
 import (
-	"jwt/domain/database"
-	"jwt/domain/models"
-	"jwt/middle"
-	"jwt/until/cookie"
-	"jwt/until/jwt"
-	"jwt/until/uid"
 	"net/http"
+	"srb/domain/database"
+	"srb/domain/models"
+	"srb/middle"
+	"srb/until/cookie"
+	"srb/until/jwt"
+	"srb/until/uid"
 
 	"github.com/labstack/echo/v4"
 	"golang.org/x/crypto/bcrypt"
