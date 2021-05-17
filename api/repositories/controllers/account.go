@@ -5,6 +5,7 @@ import (
 	"srb/domain/database"
 	"srb/domain/models"
 	"srb/middle"
+	"srb/repositories/err"
 	"srb/until/cookie"
 	"srb/until/jwt"
 	"srb/until/uid"
@@ -53,8 +54,15 @@ func Register(c echo.Context) error {
 		return err
 	}
 
+	var count int64
+	database.DB.Model(&models.Account{}).Where("email = ?", data["email"]).Count(&count)
+	if count > 0 {
+		return err.JsonErr(c, http.StatusBadRequest, "It is already registered.")
+	}
+
+	var account models.Account
 	password, _ := bcrypt.GenerateFromPassword([]byte(data["password"]), 14)
-	account := models.Account{
+	account = models.Account{
 		Username: data["name"],
 		Uid:      uid.Generate(),
 		Email:    data["email"],
