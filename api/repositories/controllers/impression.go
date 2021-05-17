@@ -32,7 +32,7 @@ func DiaryWrite(c echo.Context) error {
 	}
 
 	// DBにデータ登録
-	diary := models.Diary{
+	diary := models.Impression{
 		Uid:  uid,
 		Body: data["body"],
 	}
@@ -57,7 +57,7 @@ func DiaryRead(c echo.Context) error {
 		return err
 	}
 
-	var diary []models.Diary
+	var diary []models.Impression
 	database.DB.Where("uid = ?", uid).Order("created_at DESC").Find(&diary)
 
 	return c.JSON(http.StatusOK, diary)
@@ -73,7 +73,7 @@ func DiaryRead(c echo.Context) error {
 // @Router /diary/:id [Delete]
 func DiaryDelete(c echo.Context) error {
 	id := c.Param("id")
-	var diary []models.Diary
+	var diary []models.Impression
 	database.DB.Where("id = ?", id).Delete(&diary)
 
 	return c.JSON(http.StatusOK, "OK")

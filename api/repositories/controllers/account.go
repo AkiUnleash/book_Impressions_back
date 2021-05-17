@@ -55,7 +55,7 @@ func Register(c echo.Context) error {
 
 	password, _ := bcrypt.GenerateFromPassword([]byte(data["password"]), 14)
 	account := models.Account{
-		Name:     data["name"],
+		Username: data["name"],
 		Uid:      uid.Generate(),
 		Email:    data["email"],
 		Password: password,
