@@ -81,8 +81,11 @@ func Register(c echo.Context) error {
 // @tags account
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} models.Account
-// @Router /account/login [post]
+// @Success 200 {string} string	"200 OK"
+// @failure 400 {string} string	"400 incrrect password"
+// @failure 401 {string} string	"401 unauthenticated"
+// @failure 404 {string} string	"404 Not Found"
+// @Router /api/account/login [post]
 func Login(c echo.Context) error {
 
 	// パラメータからデータを抽出
@@ -96,25 +99,25 @@ func Login(c echo.Context) error {
 	// アカウント登録済みを確認する
 	database.DB.Where("email = ?", data["email"]).First(&account)
 	if account.Id == 0 {
-		return c.JSON(http.StatusNotFound, "404 Not Found")
+		return result.Json(c, http.StatusNotFound, "404 Not Found")
 	}
 
 	// パスワード不一致
 	if err := bcrypt.CompareHashAndPassword(account.Password, []byte(data["password"])); err != nil {
-		return c.JSON(http.StatusBadRequest, "incrrect password")
+		return result.Json(c, http.StatusBadRequest, "400 incrrect password")
 	}
 
 	// JSON Web Tokenの作成
 	token, err := jwt.GenerateToken(c, account)
 	if err != nil {
-		return c.JSON(http.StatusUnauthorized, "unauthenticated")
+		return result.Json(c, http.StatusUnauthorized, "401 unauthenticated")
 	}
 
 	// Cookie保存
 	cookie.SetCookie(c, token)
 
 	// 結果出力
-	return c.JSON(http.StatusOK, "success")
+	return result.Json(c, http.StatusOK, "200 OK")
 }
 
 // Login
