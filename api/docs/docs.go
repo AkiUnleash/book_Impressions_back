@@ -108,16 +108,43 @@ var doc = `{
                 ],
                 "summary": "Register Account infomation in the database.",
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "201 Created",
                         "schema": {
-                            "$ref": "#/definitions/models.Account"
+                            "type": "string"
+                        }
+                    },
+                    "409": {
+                        "description": "409 It is already registered",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
             }
         },
         "/diary": {
+            "get": {
+                "description": "Can be executed only at login.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "diary"
+                ],
+                "summary": "Processing to display diary",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Impression"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "Can be executed only at login.",
                 "consumes": [
@@ -138,27 +165,6 @@ var doc = `{
             }
         },
         "/diary/:id": {
-            "get": {
-                "description": "Can be executed only at login.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "diary"
-                ],
-                "summary": "Processing to display diary",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.Diary"
-                        }
-                    }
-                }
-            },
             "delete": {
                 "description": "Can be executed only at login.",
                 "consumes": [
@@ -186,24 +192,33 @@ var doc = `{
                 "create_at": {
                     "type": "string"
                 },
+                "delete_at": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
                 },
                 "id": {
                     "type": "integer"
                 },
-                "name": {
+                "uid": {
                     "type": "string"
                 },
-                "uid": {
+                "update_at": {
+                    "type": "string"
+                },
+                "username": {
                     "type": "string"
                 }
             }
         },
-        "models.Diary": {
+        "models.Impression": {
             "type": "object",
             "properties": {
                 "body": {
+                    "type": "string"
+                },
+                "booktitle": {
                     "type": "string"
                 },
                 "create_at": {
@@ -214,6 +229,18 @@ var doc = `{
                 },
                 "id": {
                     "type": "integer"
+                },
+                "imageurl": {
+                    "type": "string"
+                },
+                "isbn10": {
+                    "type": "string"
+                },
+                "isbn13": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
                 },
                 "uid": {
                     "type": "string"

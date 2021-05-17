@@ -5,7 +5,7 @@ import (
 	"srb/domain/database"
 	"srb/domain/models"
 	"srb/middle"
-	"srb/repositories/err"
+	"srb/repositories/result"
 	"srb/until/cookie"
 	"srb/until/jwt"
 	"srb/until/uid"
@@ -45,7 +45,8 @@ func CurrentUser(c echo.Context) error {
 // @tags account
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} models.Account
+// @Success 201 {string} string	"201 Created"
+// @failure 409 {string} string	"409 It is already registered"
 // @Router /account/signup [post]
 func Register(c echo.Context) error {
 	var data map[string]string
@@ -57,7 +58,7 @@ func Register(c echo.Context) error {
 	var count int64
 	database.DB.Model(&models.Account{}).Where("email = ?", data["email"]).Count(&count)
 	if count > 0 {
-		return err.JsonErr(c, http.StatusBadRequest, "It is already registered.")
+		return result.Json(c, http.StatusConflict, "409 It is already registered.")
 	}
 
 	var account models.Account
@@ -71,7 +72,7 @@ func Register(c echo.Context) error {
 
 	database.DB.Create(&account)
 
-	return c.JSON(http.StatusOK, account)
+	return result.Json(c, http.StatusCreated, "201 Created")
 }
 
 // Login

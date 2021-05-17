@@ -4,18 +4,24 @@ definitions:
     properties:
       create_at:
         type: string
+      delete_at:
+        type: string
       email:
         type: string
       id:
         type: integer
-      name:
-        type: string
       uid:
         type: string
+      update_at:
+        type: string
+      username:
+        type: string
     type: object
-  models.Diary:
+  models.Impression:
     properties:
       body:
+        type: string
+      booktitle:
         type: string
       create_at:
         type: string
@@ -23,6 +29,14 @@ definitions:
         type: string
       id:
         type: integer
+      imageurl:
+        type: string
+      isbn10:
+        type: string
+      isbn13:
+        type: string
+      title:
+        type: string
       uid:
         type: string
       update_at:
@@ -90,14 +104,32 @@ paths:
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "201":
+          description: 201 Created
           schema:
-            $ref: '#/definitions/models.Account'
+            type: string
+        "409":
+          description: 409 It is already registered
+          schema:
+            type: string
       summary: Register Account infomation in the database.
       tags:
       - account
   /diary:
+    get:
+      consumes:
+      - application/json
+      description: Can be executed only at login.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Impression'
+      summary: Processing to display diary
+      tags:
+      - diary
     post:
       consumes:
       - application/json
@@ -121,20 +153,6 @@ paths:
         "200":
           description: ""
       summary: Process to delete diary.
-      tags:
-      - diary
-    get:
-      consumes:
-      - application/json
-      description: Can be executed only at login.
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Diary'
-      summary: Processing to display diary
       tags:
       - diary
 swagger: "2.0"

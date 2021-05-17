@@ -47,7 +47,7 @@ func DiaryWrite(c echo.Context) error {
 // @tags diary
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} models.Diary
+// @Success 200 {object} models.Impression
 // @Router /diary [Get]
 func DiaryRead(c echo.Context) error {
 
