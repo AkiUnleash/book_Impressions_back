@@ -27,7 +27,7 @@ func CurrentUser(c echo.Context) error {
 	// CookieからUIDを取得
 	uid, err := middle.CurrentUserUid(c)
 	if err != nil {
-		return err
+		return result.Json(c, http.StatusUnauthorized, "401 unauthenticated")
 	}
 
 	// uidからUserを取得
