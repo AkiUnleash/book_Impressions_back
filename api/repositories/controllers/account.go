@@ -120,22 +120,23 @@ func Login(c echo.Context) error {
 	return result.Json(c, http.StatusOK, "200 OK")
 }
 
-// Login
+// Logout
 // @Summary If the cookie exists, delete it.
 // @Description JWT certification
 // @tags account
 // @Accept  json
 // @Produce  json
 // @Success 200
-// @Router /account/logout [post]
+// @failure 401 {string} string	"401 unauthenticated"
+// @Router /api/account/logout [post]
 func Logout(c echo.Context) error {
 
 	// Cookie削除
 	if err := cookie.DeleteCookie(c); err != nil {
-		return c.JSON(http.StatusUnauthorized, "unauthenticated")
+		return result.Json(c, http.StatusUnauthorized, "401 unauthenticated")
 	}
 
 	// 結果出力
-	return c.JSON(http.StatusOK, "success")
+	return result.Json(c, http.StatusOK, "200 OK")
 
 }
