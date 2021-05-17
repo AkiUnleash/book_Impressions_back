@@ -47,7 +47,7 @@ func CurrentUser(c echo.Context) error {
 // @Produce  json
 // @Success 201 {string} string	"201 Created"
 // @failure 409 {string} string	"409 It is already registered"
-// @Router /account/signup [post]
+// @Router /api/account/signup [post]
 func Register(c echo.Context) error {
 	var data map[string]string
 
