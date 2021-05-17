@@ -5,19 +5,21 @@ import (
 	"srb/domain/database"
 	"srb/domain/models"
 	"srb/middle"
+	"srb/repositories/result"
 
 	"github.com/labstack/echo/v4"
 )
 
-// Login
+// ImpressionsWrite
 // @Summary Diary registratinon process.
 // @Description Can be executed only at login.
 // @tags diary
 // @Accept  json
 // @Produce  json
-// @Success 200
+// @Success 200 {string} string	"200 OK"
+// @failure 401 {string} string	"401 unauthenticated"
 // @Router /diary [post]
-func DiaryWrite(c echo.Context) error {
+func ImpressionsWrite(c echo.Context) error {
 
 	// パラメータのBodyからデータをBind
 	var data map[string]string
@@ -28,17 +30,23 @@ func DiaryWrite(c echo.Context) error {
 	// CookieからUIDを取得
 	uid, err := middle.CurrentUserUid(c)
 	if err != nil {
-		return err
+		return result.Json(c, http.StatusUnauthorized, "401 unauthenticated")
 	}
 
 	// DBにデータ登録
-	diary := models.Impression{
-		Uid:  uid,
-		Body: data["body"],
+	Impression := models.Impression{
+		Uid:       uid,
+		Isbn10:    data["isbn10"],
+		Isbn13:    data["isbn13"],
+		Booktitle: data["booktitle"],
+		Imageurl:  data["imageurl"],
+		Title:     data["title"],
+		Body:      data["body"],
 	}
-	database.DB.Create(&diary)
+	database.DB.Create(&Impression)
 
-	return c.JSON(http.StatusOK, diary)
+	return result.Json(c, http.StatusOK, "200 OK")
+
 }
 
 // Login
@@ -49,7 +57,7 @@ func DiaryWrite(c echo.Context) error {
 // @Produce  json
 // @Success 200 {object} models.Impression
 // @Router /diary [Get]
-func DiaryRead(c echo.Context) error {
+func ImpressionsRead(c echo.Context) error {
 
 	// CookieからUIDを取得
 	uid, err := middle.CurrentUserUid(c)
@@ -71,7 +79,7 @@ func DiaryRead(c echo.Context) error {
 // @Produce  json
 // @Success 200
 // @Router /diary/:id [Delete]
-func DiaryDelete(c echo.Context) error {
+func ImpressionsDelete(c echo.Context) error {
 	id := c.Param("id")
 	var diary []models.Impression
 	database.DB.Where("id = ?", id).Delete(&diary)

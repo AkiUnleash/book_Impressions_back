@@ -28,9 +28,9 @@ func Routing() {
 	// e.PUT("api/account/nowuser", controllers.CurrentUserUpdate)
 	// e.DELETE("api/account/nowuser", controllers.CurrentUserDelete)
 
-	e.GET("api/diary", controllers.DiaryRead)
-	e.POST("api/diary", controllers.DiaryWrite)
-	e.DELETE("api/diary/:id", controllers.DiaryDelete)
+	e.GET("api/impressions", controllers.ImpressionsRead)
+	e.POST("api/impressions", controllers.ImpressionsWrite)
+	e.DELETE("api/impressions/:id", controllers.ImpressionsDelete)
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
