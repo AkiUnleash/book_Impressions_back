@@ -78,7 +78,7 @@ func ImpressionsRead(c echo.Context) error {
 // @tags diary
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} models.Impression
+// @Success 200 {string} string	"200 OK"
 // @failure 401 {string} string	"401 unauthenticated"
 // @failure 404 {string} string	"404 Not Found"
 // @Router /diary [Get]
@@ -102,18 +102,33 @@ func ImpressionRead(c echo.Context) error {
 	return c.JSON(http.StatusOK, Impression)
 }
 
-// Login
+// ImpressionDelete
 // @Summary Process to delete diary.
 // @Description Can be executed only at login.
 // @tags diary
 // @Accept  json
 // @Produce  json
-// @Success 200
+// @Success 200 {string} string	"200 OK"
+// @failure 401 {string} string	"401 unauthenticated"
+// @failure 404 {string} string	"404 Not Found"
 // @Router /diary/:id [Delete]
-func ImpressionsDelete(c echo.Context) error {
+func ImpressionDelete(c echo.Context) error {
+	// CookieからUIDを取得
+	uid, err := middle.CurrentUserUid(c)
+	if err != nil {
+		return result.Json(c, http.StatusUnauthorized, "401 unauthenticated")
+	}
+
 	id := c.Param("id")
-	var diary []models.Impression
-	database.DB.Where("id = ?", id).Delete(&diary)
+	var Impression models.Impression
+	database.DB.Where("uid = ?", uid).Where("id = ?", id).Find(&Impression)
+
+	// 対象者データ無し
+	if Impression.Id == 0 {
+		return result.Json(c, http.StatusNotFound, "404 Not Found")
+	}
+
+	database.DB.Delete(&Impression)
 
 	return c.JSON(http.StatusOK, "OK")
 }
