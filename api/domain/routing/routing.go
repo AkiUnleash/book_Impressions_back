@@ -21,15 +21,16 @@ func Routing() {
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderXCSRFToken},
 	}))
 
-	e.GET("account/user", controllers.Account)
-	e.POST("account/signup", controllers.Register)
-	e.POST("account/login", controllers.Login)
-	e.POST("account/logout", controllers.Logout)
-	e.GET("account/nowuser", controllers.CurrentUser)
+	e.POST("api/account/signup", controllers.Register)
+	e.POST("api/account/login", controllers.Login)
+	e.POST("api/account/logout", controllers.Logout)
+	e.GET("api/account/nowuser", controllers.CurrentUser)
+	// e.PUT("api/account/nowuser", controllers.CurrentUserUpdate)
+	// e.DELETE("api/account/nowuser", controllers.CurrentUserDelete)
 
-	e.GET("diary", controllers.DiaryRead)
-	e.POST("diary", controllers.DiaryWrite)
-	e.DELETE("diary/:id", controllers.DiaryDelete)
+	e.GET("api/diary", controllers.DiaryRead)
+	e.POST("api/diary", controllers.DiaryWrite)
+	e.DELETE("api/diary/:id", controllers.DiaryDelete)
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 

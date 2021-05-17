@@ -13,16 +13,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func Account(c echo.Context) error {
-
-	// CookieのデータからUserを取得
-	var account models.Account
-	database.DB.Where("id = ?", 2).First(&account)
-
-	// JSONを返す
-	return c.JSON(http.StatusOK, account)
-}
-
 // CurentUser
 // @Summary Show infomation about the currently logged in user.
 // @Description Browse Account table.
