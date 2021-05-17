@@ -72,6 +72,36 @@ func ImpressionsRead(c echo.Context) error {
 	return c.JSON(http.StatusOK, Impression)
 }
 
+// ImpressionRead
+// @Summary Processing to display diary
+// @Description Can be executed only at login.
+// @tags diary
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.Impression
+// @failure 401 {string} string	"401 unauthenticated"
+// @failure 404 {string} string	"404 Not Found"
+// @Router /diary [Get]
+func ImpressionRead(c echo.Context) error {
+
+	// CookieからUIDを取得
+	uid, err := middle.CurrentUserUid(c)
+	if err != nil {
+		return result.Json(c, http.StatusUnauthorized, "401 unauthenticated")
+	}
+
+	id := c.Param("id")
+	var Impression models.Impression
+	database.DB.Where("uid = ?", uid).Where("id = ?", id).Find(&Impression)
+
+	// 対象者データ無し
+	if Impression.Id == 0 {
+		return result.Json(c, http.StatusNotFound, "404 Not Found")
+	}
+
+	return c.JSON(http.StatusOK, Impression)
+}
+
 // Login
 // @Summary Process to delete diary.
 // @Description Can be executed only at login.

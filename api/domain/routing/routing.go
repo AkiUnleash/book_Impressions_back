@@ -30,7 +30,8 @@ func Routing() {
 
 	e.GET("api/impressions", controllers.ImpressionsRead)
 	e.POST("api/impressions", controllers.ImpressionsWrite)
-	e.DELETE("api/impressions/:id", controllers.ImpressionsDelete)
+	e.GET("api/impression/:id", controllers.ImpressionRead)
+	e.DELETE("api/impression/:id", controllers.ImpressionsDelete)
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
