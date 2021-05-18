@@ -28,49 +28,6 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/account/login": {
-            "post": {
-                "description": "JWT certification",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "account"
-                ],
-                "summary": "If the infomation passed in the request body matches the data in the table, a cookie will be issued.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.Account"
-                        }
-                    }
-                }
-            }
-        },
-        "/account/logout": {
-            "post": {
-                "description": "JWT certification",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "account"
-                ],
-                "summary": "If the cookie exists, delete it.",
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
         "/account/nowuser": {
             "get": {
                 "description": "Browse Account table.",
@@ -90,11 +47,90 @@ var doc = `{
                         "schema": {
                             "$ref": "#/definitions/models.Account"
                         }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 }
             }
         },
-        "/account/signup": {
+        "/api/account/login": {
+            "post": {
+                "description": "JWT certification",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "If the infomation passed in the request body matches the data in the table, a cookie will be issued.",
+                "responses": {
+                    "200": {
+                        "description": "200 OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "400 incrrect password",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/account/logout": {
+            "post": {
+                "description": "JWT certification",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "If the cookie exists, delete it.",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/account/signup": {
             "post": {
                 "description": "Use the account table.",
                 "consumes": [
@@ -138,9 +174,21 @@ var doc = `{
                 "summary": "Processing to display diary",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "200 OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Impression"
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -159,7 +207,16 @@ var doc = `{
                 "summary": "Diary registratinon process.",
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "200 OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 }
             }
@@ -179,7 +236,22 @@ var doc = `{
                 "summary": "Process to delete diary.",
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "200 OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 }
             }
