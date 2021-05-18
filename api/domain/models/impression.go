@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Impression struct {
-	Id        uint       `json:"id"`
+	Id        uint       `json:"id" param:"id"`
 	Uid       string     `json:"uid"`
 	Isbn10    string     `json:"isbn10"`
 	Isbn13    string     `json:"isbn13"`

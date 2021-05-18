@@ -19,7 +19,7 @@ func Connet() {
 	PROTOCOL := config.Config.Protocol
 	DBNAME := config.Config.Dbname
 
-	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
+	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?parseTime=true"
 
 	connection, err := gorm.Open(DBMS, CONNECT)
 

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"srb/domain/database"
 	"srb/domain/models"
@@ -130,5 +131,47 @@ func ImpressionDelete(c echo.Context) error {
 
 	database.DB.Delete(&Impression)
 
-	return c.JSON(http.StatusOK, "OK")
+	return result.Json(c, http.StatusOK, "200 OK")
+}
+
+// ImpressionUpdate
+// @Summary Process to delete diary.
+// @Description Can be executed only at login.
+// @tags diary
+// @Accept  json
+// @Produce  json
+// @Success 200 {string} string	"200 OK"
+// @failure 401 {string} string	"401 unauthenticated"
+// @failure 404 {string} string	"404 Not Found"
+// @Router /diary/:id [Delete]
+func ImpressionUpdate(c echo.Context) error {
+
+	// CookieからUIDを取得
+	uid, err := middle.CurrentUserUid(c)
+	if err != nil {
+		return result.Json(c, http.StatusUnauthorized, "401 unauthenticated")
+	}
+
+	// パラメータのBodyからデータをBind
+	var data models.Impression
+	if err := c.Bind(&data); err != nil {
+		return err
+	}
+
+	fmt.Println(uid, data)
+
+	// DBにデータ登録
+	Impression := models.Impression{
+		Uid:       uid,
+		Isbn10:    data.Isbn10,
+		Isbn13:    data.Isbn13,
+		Booktitle: data.Booktitle,
+		Imageurl:  data.Imageurl,
+		Title:     data.Title,
+		Body:      data.Body,
+	}
+
+	database.DB.Model(&models.Impression{}).Where("uid = ?", uid).Where("id = ?", data.Id).Update(&Impression)
+
+	return result.Json(c, http.StatusOK, "200 OK")
 }
