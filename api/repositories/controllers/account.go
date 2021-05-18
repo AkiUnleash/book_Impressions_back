@@ -188,6 +188,7 @@ func CurrentUserUpdate(c echo.Context) error {
 // @Produce  json
 // @Success 200 {object} models.Account
 // @failure 401 {string} string	"401 unauthenticated"
+// @failure 404 {string} string	"404 Not Found"
 // @Router /account/nowuser [get]
 func CurrentUserDelete(c echo.Context) error {
 
@@ -195,6 +196,13 @@ func CurrentUserDelete(c echo.Context) error {
 	uid, err := middle.CurrentUserUid(c)
 	if err != nil {
 		return result.Json(c, http.StatusUnauthorized, "401 unauthenticated")
+	}
+
+	// アカウントの存在確認
+	var count int64
+	database.DB.Model(&models.Account{}).Where("uid = ?", uid).Count(&count)
+	if count == 0 {
+		return result.Json(c, http.StatusNotFound, "404 Not Found")
 	}
 
 	// uidからUserを取得
