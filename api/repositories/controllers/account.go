@@ -14,31 +14,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// CurentUser
-// @Summary Show infomation about the currently logged in user.
-// @Description Browse Account table.
-// @tags account
-// @Accept  json
-// @Produce  json
-// @Success 200 {object} models.Account
-// @Router /account/nowuser [get]
-func CurrentUser(c echo.Context) error {
-
-	// CookieからUIDを取得
-	uid, err := middle.CurrentUserUid(c)
-	if err != nil {
-		return result.Json(c, http.StatusUnauthorized, "401 unauthenticated")
-	}
-
-	// uidからUserを取得
-	var account models.Account
-	database.DB.Where("uid = ?", uid).First(&account)
-
-	// JSONを返す
-	return c.JSON(http.StatusOK, account)
-
-}
-
 // Register
 // @Summary Register Account infomation in the database.
 // @Description Use the account table.
@@ -130,6 +105,62 @@ func Login(c echo.Context) error {
 // @failure 401 {string} string	"401 unauthenticated"
 // @Router /api/account/logout [post]
 func Logout(c echo.Context) error {
+
+	// Cookie削除
+	if err := cookie.DeleteCookie(c); err != nil {
+		return result.Json(c, http.StatusUnauthorized, "401 unauthenticated")
+	}
+
+	// 結果出力
+	return result.Json(c, http.StatusOK, "200 OK")
+
+}
+
+// CurentUser
+// @Summary Show infomation about the currently logged in user.
+// @Description Browse Account table.
+// @tags account
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.Account
+// @Router /account/nowuser [get]
+func CurrentUser(c echo.Context) error {
+
+	// CookieからUIDを取得
+	uid, err := middle.CurrentUserUid(c)
+	if err != nil {
+		return result.Json(c, http.StatusUnauthorized, "401 unauthenticated")
+	}
+
+	// uidからUserを取得
+	var account models.Account
+	database.DB.Where("uid = ?", uid).First(&account)
+
+	// JSONを返す
+	return c.JSON(http.StatusOK, account)
+
+}
+
+// CurentUserDelete
+// @Summary Show infomation about the currently logged in user.
+// @Description Browse Account table.
+// @tags account
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.Account
+// @failure 401 {string} string	"401 unauthenticated"
+// @Router /account/nowuser [get]
+func CurrentUserDelete(c echo.Context) error {
+
+	// CookieからUIDを取得
+	uid, err := middle.CurrentUserUid(c)
+	if err != nil {
+		return result.Json(c, http.StatusUnauthorized, "401 unauthenticated")
+	}
+
+	// uidからUserを取得
+	var account models.Account
+	database.DB.Where("uid = ?", uid).Delete(&account)
 
 	// Cookie削除
 	if err := cookie.DeleteCookie(c); err != nil {

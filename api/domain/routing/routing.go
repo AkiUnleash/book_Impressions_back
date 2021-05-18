@@ -26,7 +26,7 @@ func Routing() {
 	e.POST("api/account/logout", controllers.Logout)
 	e.GET("api/account/nowuser", controllers.CurrentUser)
 	// e.PUT("api/account/nowuser", controllers.CurrentUserUpdate)
-	// e.DELETE("api/account/nowuser", controllers.CurrentUserDelete)
+	e.DELETE("api/account/nowuser", controllers.CurrentUserDelete)
 
 	e.GET("api/impressions", controllers.ImpressionsRead)
 	e.POST("api/impressions", controllers.ImpressionsWrite)
