@@ -13,49 +13,6 @@
     "host": "http://localhost:8081",
     "basePath": "/",
     "paths": {
-        "/account/login": {
-            "post": {
-                "description": "JWT certification",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "account"
-                ],
-                "summary": "If the infomation passed in the request body matches the data in the table, a cookie will be issued.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.Account"
-                        }
-                    }
-                }
-            }
-        },
-        "/account/logout": {
-            "post": {
-                "description": "JWT certification",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "account"
-                ],
-                "summary": "If the cookie exists, delete it.",
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
         "/account/nowuser": {
             "get": {
                 "description": "Browse Account table.",
@@ -75,11 +32,90 @@
                         "schema": {
                             "$ref": "#/definitions/models.Account"
                         }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 }
             }
         },
-        "/account/signup": {
+        "/api/account/login": {
+            "post": {
+                "description": "JWT certification",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "If the infomation passed in the request body matches the data in the table, a cookie will be issued.",
+                "responses": {
+                    "200": {
+                        "description": "200 OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "400 incrrect password",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/account/logout": {
+            "post": {
+                "description": "JWT certification",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "If the cookie exists, delete it.",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/account/signup": {
             "post": {
                 "description": "Use the account table.",
                 "consumes": [
@@ -93,36 +129,22 @@
                 ],
                 "summary": "Register Account infomation in the database.",
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "201 Created",
                         "schema": {
-                            "$ref": "#/definitions/models.Account"
+                            "type": "string"
+                        }
+                    },
+                    "409": {
+                        "description": "409 It is already registered",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
             }
         },
         "/diary": {
-            "post": {
-                "description": "Can be executed only at login.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "diary"
-                ],
-                "summary": "Diary registratinon process.",
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/diary/:id": {
             "get": {
                 "description": "Can be executed only at login.",
                 "consumes": [
@@ -137,13 +159,54 @@
                 "summary": "Processing to display diary",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "200 OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Diary"
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
             },
+            "post": {
+                "description": "Can be executed only at login.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "diary"
+                ],
+                "summary": "Diary registratinon process.",
+                "responses": {
+                    "200": {
+                        "description": "200 OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/diary/:id": {
             "delete": {
                 "description": "Can be executed only at login.",
                 "consumes": [
@@ -158,7 +221,22 @@
                 "summary": "Process to delete diary.",
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "200 OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 }
             }
@@ -171,24 +249,33 @@
                 "create_at": {
                     "type": "string"
                 },
+                "delete_at": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
                 },
                 "id": {
                     "type": "integer"
                 },
-                "name": {
+                "uid": {
                     "type": "string"
                 },
-                "uid": {
+                "update_at": {
+                    "type": "string"
+                },
+                "username": {
                     "type": "string"
                 }
             }
         },
-        "models.Diary": {
+        "models.Impression": {
             "type": "object",
             "properties": {
                 "body": {
+                    "type": "string"
+                },
+                "booktitle": {
                     "type": "string"
                 },
                 "create_at": {
@@ -199,6 +286,18 @@
                 },
                 "id": {
                     "type": "integer"
+                },
+                "imageurl": {
+                    "type": "string"
+                },
+                "isbn10": {
+                    "type": "string"
+                },
+                "isbn13": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
                 },
                 "uid": {
                     "type": "string"

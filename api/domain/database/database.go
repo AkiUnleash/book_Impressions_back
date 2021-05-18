@@ -19,7 +19,7 @@ func Connet() {
 	PROTOCOL := config.Config.Protocol
 	DBNAME := config.Config.Dbname
 
-	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
+	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?parseTime=true"
 
 	connection, err := gorm.Open(DBMS, CONNECT)
 
@@ -33,5 +33,5 @@ func Connet() {
 
 	// テーブル自動生成
 	connection.AutoMigrate(&models.Account{})
-	connection.AutoMigrate(&models.Diary{})
+	connection.AutoMigrate(&models.Impression{})
 }

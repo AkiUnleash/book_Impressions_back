@@ -4,18 +4,24 @@ definitions:
     properties:
       create_at:
         type: string
+      delete_at:
+        type: string
       email:
         type: string
       id:
         type: integer
-      name:
-        type: string
       uid:
         type: string
+      update_at:
+        type: string
+      username:
+        type: string
     type: object
-  models.Diary:
+  models.Impression:
     properties:
       body:
+        type: string
+      booktitle:
         type: string
       create_at:
         type: string
@@ -23,6 +29,14 @@ definitions:
         type: string
       id:
         type: integer
+      imageurl:
+        type: string
+      isbn10:
+        type: string
+      isbn13:
+        type: string
+      title:
+        type: string
       uid:
         type: string
       update_at:
@@ -38,35 +52,6 @@ info:
   title: JWT-login-example
   version: 1.0.0
 paths:
-  /account/login:
-    post:
-      consumes:
-      - application/json
-      description: JWT certification
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Account'
-      summary: If the infomation passed in the request body matches the data in the
-        table, a cookie will be issued.
-      tags:
-      - account
-  /account/logout:
-    post:
-      consumes:
-      - application/json
-      description: JWT certification
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ""
-      summary: If the cookie exists, delete it.
-      tags:
-      - account
   /account/nowuser:
     get:
       consumes:
@@ -79,10 +64,63 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Account'
+        "401":
+          description: 401 unauthenticated
+          schema:
+            type: string
+        "404":
+          description: 404 Not Found
+          schema:
+            type: string
       summary: Show infomation about the currently logged in user.
       tags:
       - account
-  /account/signup:
+  /api/account/login:
+    post:
+      consumes:
+      - application/json
+      description: JWT certification
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 200 OK
+          schema:
+            type: string
+        "400":
+          description: 400 incrrect password
+          schema:
+            type: string
+        "401":
+          description: 401 unauthenticated
+          schema:
+            type: string
+        "404":
+          description: 404 Not Found
+          schema:
+            type: string
+      summary: If the infomation passed in the request body matches the data in the
+        table, a cookie will be issued.
+      tags:
+      - account
+  /api/account/logout:
+    post:
+      consumes:
+      - application/json
+      description: JWT certification
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "401":
+          description: 401 unauthenticated
+          schema:
+            type: string
+      summary: If the cookie exists, delete it.
+      tags:
+      - account
+  /api/account/signup:
     post:
       consumes:
       - application/json
@@ -90,14 +128,40 @@ paths:
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "201":
+          description: 201 Created
           schema:
-            $ref: '#/definitions/models.Account'
+            type: string
+        "409":
+          description: 409 It is already registered
+          schema:
+            type: string
       summary: Register Account infomation in the database.
       tags:
       - account
   /diary:
+    get:
+      consumes:
+      - application/json
+      description: Can be executed only at login.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 200 OK
+          schema:
+            type: string
+        "401":
+          description: 401 unauthenticated
+          schema:
+            type: string
+        "404":
+          description: 404 Not Found
+          schema:
+            type: string
+      summary: Processing to display diary
+      tags:
+      - diary
     post:
       consumes:
       - application/json
@@ -106,7 +170,13 @@ paths:
       - application/json
       responses:
         "200":
-          description: ""
+          description: 200 OK
+          schema:
+            type: string
+        "401":
+          description: 401 unauthenticated
+          schema:
+            type: string
       summary: Diary registratinon process.
       tags:
       - diary
@@ -119,22 +189,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: ""
-      summary: Process to delete diary.
-      tags:
-      - diary
-    get:
-      consumes:
-      - application/json
-      description: Can be executed only at login.
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
+          description: 200 OK
           schema:
-            $ref: '#/definitions/models.Diary'
-      summary: Processing to display diary
+            type: string
+        "401":
+          description: 401 unauthenticated
+          schema:
+            type: string
+        "404":
+          description: 404 Not Found
+          schema:
+            type: string
+      summary: Process to delete diary.
       tags:
       - diary
 swagger: "2.0"
