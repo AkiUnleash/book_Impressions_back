@@ -141,6 +141,45 @@ func CurrentUser(c echo.Context) error {
 
 }
 
+// CurentUserUpdate
+// @Summary Show infomation about the currently logged in user.
+// @Description Browse Account table.
+// @tags account
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.Account
+// @failure 401 {string} string	"401 unauthenticated"
+// @failure 404 {string} string	"404 Not Found"
+// @Router /account/nowuser [get]
+func CurrentUserUpdate(c echo.Context) error {
+
+	// CookieからUIDを取得
+	uid, err := middle.CurrentUserUid(c)
+	if err != nil {
+		return result.Json(c, http.StatusUnauthorized, "401 unauthenticated")
+	}
+
+	// アカウントの存在確認
+	var count int64
+	database.DB.Model(&models.Account{}).Where("uid = ?", uid).Count(&count)
+	if count == 0 {
+		return result.Json(c, http.StatusNotFound, "404 Not Found")
+	}
+
+	// リクエストボディのデータを取得
+	var data models.AccountUpdate
+	if err := c.Bind(&data); err != nil {
+		return err
+	}
+
+	// 更新処理
+	database.DB.Model(&models.Account{}).Where("uid = ?", uid).Update(&data)
+
+	// 結果出力
+	return result.Json(c, http.StatusOK, "200 OK")
+
+}
+
 // CurentUserDelete
 // @Summary Show infomation about the currently logged in user.
 // @Description Browse Account table.

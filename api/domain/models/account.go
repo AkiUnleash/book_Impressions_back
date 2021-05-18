@@ -12,3 +12,8 @@ type Account struct {
 	UpdatedAt time.Time  `json:"update_at"`
 	DeletedAt *time.Time `json:"delete_at"`
 }
+
+type AccountUpdate struct {
+	Username string `json:"username"`
+	Email    string `json:"email" gorm:"unique"`
+}
