@@ -18,7 +18,7 @@ func SetCookie(c echo.Context, token string) {
 	cookie.Value = token
 	cookie.Expires = time.Now().Add(time.Hour * 24)
 	cookie.HttpOnly = true
-	// cookie.Secure = true
+	cookie.Secure = true
 	cookie.SameSite = http.SameSiteNoneMode
 	c.SetCookie(cookie)
 }
@@ -33,7 +33,7 @@ func DeleteCookie(c echo.Context) error {
 	// cookie.Path = "/"
 	cookie.MaxAge = -1
 	cookie.HttpOnly = true
-	// cookie.Secure = true
+	cookie.Secure = true
 	cookie.SameSite = http.SameSiteNoneMode
 	c.SetCookie(cookie)
 
