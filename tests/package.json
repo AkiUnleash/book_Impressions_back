@@ -1,0 +1,12 @@
+{
+  "name": "tests",
+  "version": "1",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "newman": "^5.2.3"
+  },
+  "scripts": {
+    "test": "newman run SRB_Auto.postman_collection.json --insecure"
+  }
+}
