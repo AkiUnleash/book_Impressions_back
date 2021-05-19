@@ -29,5 +29,3 @@ services:
     ports:
       - "3306:3306"
     container_name: mysql-container-jwt
-  wait:
-    image: willwill/wait-for-it:latest
