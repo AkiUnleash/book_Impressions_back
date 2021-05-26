@@ -391,7 +391,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"isbn10\":\"aaa\",\n    \"isbn13\":\"bbb\",\n    \"booktitle\":\"Booktitle\",\n    \"imageurl\":\"http://example.com/img\",\n    \"title\":\"title\",\n    \"body\":\"body\"\n}",
+					"raw": "{\n    \"isbn10\":\"aaa\",\n    \"isbn13\":\"bbb\",\n    \"bookid\": \"idjalei\",\n    \"booktitle\":\"Booktitle\",\n    \"imageurl\":\"http://example.com/img\",\n    \"title\":\"title\",\n    \"body\":\"body\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
