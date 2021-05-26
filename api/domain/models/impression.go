@@ -5,6 +5,7 @@ import "time"
 type Impression struct {
 	Id        uint       `json:"id" param:"id"`
 	Uid       string     `json:"uid"`
+	Bookid    string     `json:"bookid"`
 	Isbn10    string     `json:"isbn10"`
 	Isbn13    string     `json:"isbn13"`
 	Booktitle string     `json:"booktitle"`

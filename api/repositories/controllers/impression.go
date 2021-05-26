@@ -37,6 +37,7 @@ func ImpressionsWrite(c echo.Context) error {
 	// DBにデータ登録
 	Impression := models.Impression{
 		Uid:       uid,
+		Bookid:    data["bookid"],
 		Isbn10:    data["isbn10"],
 		Isbn13:    data["isbn13"],
 		Booktitle: data["booktitle"],
@@ -163,6 +164,7 @@ func ImpressionUpdate(c echo.Context) error {
 	// DBにデータ登録
 	Impression := models.Impression{
 		Uid:       uid,
+		Bookid:    data.Bookid,
 		Isbn10:    data.Isbn10,
 		Isbn13:    data.Isbn13,
 		Booktitle: data.Booktitle,
