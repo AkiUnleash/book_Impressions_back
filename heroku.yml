@@ -2,4 +2,4 @@ build:
   docker:
     web: .docker/api/Dockerfile
 run:
-  web: main.go
+  web: go run main.go
