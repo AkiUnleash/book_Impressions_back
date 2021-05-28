@@ -1,5 +1,5 @@
 build:
   docker:
-    web: .docker/api/Dockerfile
+    web: Dockerfile
 run:
   web: go run main.go
