@@ -18,8 +18,9 @@ func Routing() {
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowCredentials: true,
-		AllowOrigins:     []string{"http://localhost:5000"},
-		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderXCSRFToken},
+		// AllowOrigins:     []string{"http://localhost:5000"},
+		AllowOrigins: []string{os.Getenv("FLONT_URL")},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderXCSRFToken},
 	}))
 
 	e.POST("api/account/signup", controllers.Register)
