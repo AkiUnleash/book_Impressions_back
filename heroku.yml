@@ -1,6 +1,5 @@
 build:
   docker:
     web: Dockerfile
-    worker:
-      dockerfile: Dockerfile
-      target: builder
+run:
+  web: go run main.go

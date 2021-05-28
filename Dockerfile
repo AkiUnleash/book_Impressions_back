@@ -8,13 +8,4 @@ WORKDIR /go/src/api
 
 ADD ./api /go/src/api
 
-RUN GOOS=linux GOARCH=amd64 go build -o /main
-
-FROM alpine:3.9
-
-COPY --from=builder /api/main .
-
-ENV PORT=${PORT}
-ENTRYPOINT ["/main"]
-
 # RUN ./api/main
