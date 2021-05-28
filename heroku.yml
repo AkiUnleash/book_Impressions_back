@@ -1,6 +1,5 @@
 build:
   docker:
-    web: Dockerfile
-    worker: .docker/api/Dockerfile
+    web: .docker/api/Dockerfile
 run:
   web: main.go
