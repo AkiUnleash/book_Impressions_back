@@ -1,6 +1,7 @@
 package routing
 
 import (
+	"os"
 	"srb/repositories/controllers"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -36,5 +37,5 @@ func Routing() {
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
-	e.Logger.Fatal(e.Start(":8082"))
+	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }
