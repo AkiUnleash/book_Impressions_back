@@ -1,0 +1,834 @@
+{
+	"info": {
+		"_postman_id": "51cf10ab-6009-42fa-98ef-3c6f2e17d85b",
+		"name": "SRB_Auto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Account/Login_404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"    pm.expect(jsonData.message).to.eql(\"404 Not Found\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"if_then_maybe@example.com\",\n    \"password\": \"ibm5100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/account/login",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account/Signup_200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(201);",
+							"    pm.expect(jsonData.message).to.eql(\"201 Created\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"John Titor\",\n    \"email\": \"if_then_maybe@example.com\",\n    \"password\": \"ibm5100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/account/signup",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account/Signup_409",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(409);",
+							"    pm.expect(jsonData.message).to.eql(\"409 It is already registered.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"John Titor\",\n    \"email\": \"if_then_maybe@example.com\",\n    \"password\": \"ibm5100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/account/signup",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account/Nowuser_401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(401);",
+							"    pm.expect(jsonData.message).to.eql(\"401 unauthenticated\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/api/account/nowuser",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"nowuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Impressions_401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(401);",
+							"    pm.expect(jsonData.message).to.eql(\"401 unauthenticated\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/impressions",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"impressions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Impression/:id_401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(401);",
+							"    pm.expect(jsonData.message).to.eql(\"401 unauthenticated\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjEzMjI4NzMsImlzcyI6IjMyMTg2ZTMwLTk4MmUtNDA4Yy04NDkxLWM0NzNmOTExNDQ5MiJ9.z80pslt7aBRuxGjtBj7yqEnBl-ctVYbz5DYEGcAxqcI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/impression/:id",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"impression",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account/Login_200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"    pm.expect(jsonData.message).to.eql(\"200 OK\");",
+							"});",
+							"",
+							"pm.test(\"Response contains a jwt cookie\", function() {",
+							"    pm.expect(pm.cookies.has('jwt')).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"if_then_maybe@example.com\",\n    \"password\": \"ibm5100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/account/login",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account/Nowuser_200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.username).to.eql(\"John Titor\");",
+							"    pm.expect(jsonData.email).to.eql(\"if_then_maybe@example.com\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/api/account/nowuser",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"nowuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Impressions_200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"    pm.expect(jsonData.message).to.eql(\"200 OK\");",
+							"});",
+							"",
+							"pm.test(\"Response contains a jwt cookie\", function() {",
+							"    pm.expect(pm.cookies.has('jwt')).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isbn10\":\"aaa\",\n    \"isbn13\":\"bbb\",\n    \"bookid\": \"idjalei\",\n    \"booktitle\":\"Booktitle\",\n    \"imageurl\":\"http://example.com/img\",\n    \"title\":\"title\",\n    \"body\":\"body\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/impressions",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"impressions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Impressions_200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].isbn10).to.eql(\"aaa\");",
+							"    pm.expect(jsonData[0].isbn13).to.eql(\"bbb\");",
+							"    pm.expect(jsonData[0].booktitle).to.eql(\"Booktitle\");",
+							"    pm.expect(jsonData[0].imageurl).to.eql(\"http://example.com/img\");",
+							"    pm.expect(jsonData[0].title).to.eql(\"title\");",
+							"    pm.expect(jsonData[0].body).to.eql(\"body\");",
+							"});",
+							"",
+							"pm.test(\"Response contains a jwt cookie\", function() {",
+							"    pm.expect(pm.cookies.has('jwt')).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/impressions",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"impressions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Impression/:id_404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(404);",
+							"    pm.expect(jsonData.message).to.eql(\"404 Not Found\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/impression/:id",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"impression",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "999999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account/Nowuser_200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"    pm.expect(jsonData.message).to.eql(\"200 OK\");",
+							"});",
+							"",
+							"pm.test(\"Response contains a jwt cookie\", function() {",
+							"    pm.expect(pm.cookies.has('jwt')).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"TimeTravel_0\",\n    \"email\": \"if_then@example.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/account/nowuser",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"nowuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account/Nowuser_200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.username).to.eql(\"TimeTravel_0\");",
+							"    pm.expect(jsonData.email).to.eql(\"if_then@example.com\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/api/account/nowuser",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"nowuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account/Logout_200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"    pm.expect(jsonData.message).to.eql(\"200 OK\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/account/logout",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account/Logout_401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(401);",
+							"    pm.expect(jsonData.message).to.eql(\"401 unauthenticated\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/account/logout",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account/Signup_200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(201);",
+							"    pm.expect(jsonData.message).to.eql(\"201 Created\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"John Titor\",\n    \"email\": \"if_then_maybe@example.com\",\n    \"password\": \"ibm5100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/account/signup",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account/Login_200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"    pm.expect(jsonData.message).to.eql(\"200 OK\");",
+							"});",
+							"",
+							"pm.test(\"Response contains a jwt cookie\", function() {",
+							"    pm.expect(pm.cookies.has('jwt')).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"if_then_maybe@example.com\",\n    \"password\": \"ibm5100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/api/account/login",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account/Nowuser_200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"JsonData Chack\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(200);",
+							"    pm.expect(jsonData.message).to.eql(\"200 OK\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/api/account/nowuser",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"nowuser"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseUrl",
+			"value": "https://localhost:8083"
+		}
+	]
+}

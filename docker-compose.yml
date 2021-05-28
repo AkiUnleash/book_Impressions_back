@@ -1,0 +1,31 @@
+version: "3"
+services:
+  https-portal3000:
+    image: steveltn/https-portal:1
+    ports:
+      - "8083:443"
+    environment:
+      STAGE: local
+      DOMAINS: "localhost -> http://host.docker.internal:8082"
+  api:
+    build:
+      context: .
+      dockerfile: ./.docker/api/Dockerfile
+    tty: true
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./api:/go/src/api
+    command: go run main.go
+    depends_on:
+      - mysql
+  mysql:
+    build: ./.docker/mysql/
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=golang
+    ports:
+      - "3306:3306"
+    container_name: mysql-container-jwt
