@@ -11,6 +11,7 @@ type ConfigList struct {
 	Protocol  string
 	Dbname    string
 	Secretkey string
+	FlontUrl  string
 }
 
 var Config ConfigList
@@ -30,5 +31,6 @@ func init() {
 		Protocol:  cfg.Section("db").Key("protocol").String(),
 		Dbname:    cfg.Section("db").Key("db_name").String(),
 		Secretkey: cfg.Section("jwt").Key("secretkey").String(),
+		FlontUrl:  cfg.Section("flont").Key("url").String(),
 	}
 }

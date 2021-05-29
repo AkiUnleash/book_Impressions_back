@@ -3,3 +3,4 @@ api/config.ini
 api/go.sum
 tests/node_modules
 yarn.lock
+.env
