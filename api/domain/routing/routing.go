@@ -45,9 +45,9 @@ func Routing() {
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
-	// if os.Getenv("ENVIROMENT") == "production" {
-	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
-	// } else {
-	// e.Logger.Fatal(e.Start(":8082"))
-	// }
+	if os.Getenv("ENVIROMENT") == "production" {
+		e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
+	} else {
+		e.Logger.Fatal(e.Start(":8082"))
+	}
 }
