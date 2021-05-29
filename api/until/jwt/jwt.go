@@ -1,7 +1,7 @@
 package jwt
 
 import (
-	"srb/config"
+	"os"
 	"time"
 
 	"srb/domain/models"
@@ -17,7 +17,9 @@ func GenerateToken(c echo.Context, account models.Account) (string, error) {
 		Issuer:    account.Uid,
 		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
 	})
-	token, err := claims.SignedString([]byte(config.Config.Secretkey))
+
+	token, err := claims.SignedString([]byte(os.Getenv("JWT_SECRET_KEY")))
+	// token, err := claims.SignedString([]byte(config.Config.Secretkey))
 
 	return token, err
 }
@@ -26,7 +28,10 @@ func ReadToken(c echo.Context, cookie string) (string, error) {
 
 	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{},
 		func(token *jwt.Token) (interface{}, error) {
-			return []byte(config.Config.Secretkey), nil
+
+			return []byte(os.Getenv("JWT_SECRET_KEY")), nil
+			// return []byte(config.Config.Secretkey), nil
+
 		})
 
 	if err != nil {

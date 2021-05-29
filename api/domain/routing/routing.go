@@ -1,6 +1,7 @@
 package routing
 
 import (
+	"os"
 	"srb/repositories/controllers"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -17,8 +18,9 @@ func Routing() {
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowCredentials: true,
-		AllowOrigins:     []string{"http://localhost:5000"},
-		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderXCSRFToken},
+		AllowOrigins:     []string{os.Getenv("FLONT_URL")},
+		// AllowOrigins:     []string{config.Config.FlontUrl},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderXCSRFToken},
 	}))
 
 	e.POST("api/account/signup", controllers.Register)
@@ -36,5 +38,9 @@ func Routing() {
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
-	e.Logger.Fatal(e.Start(":8082"))
+	if os.Getenv("ENVIROMENT") == "production" {
+		e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
+	} else {
+		e.Logger.Fatal(e.Start(":8082"))
+	}
 }
