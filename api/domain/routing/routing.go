@@ -16,19 +16,12 @@ import (
 func Routing() {
 	e := echo.New()
 
-	// if os.Getenv("ENVIROMENT") == "production" {
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowCredentials: true,
 		AllowOrigins:     []string{os.Getenv("FLONT_URL")},
-		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderXCSRFToken},
+		// AllowOrigins:     []string{config.Config.FlontUrl},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderXCSRFToken},
 	}))
-	// } else {
-	// 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-	// 		AllowCredentials: true,
-	// 		AllowOrigins:     []string{config.Config.FlontUrl},
-	// 		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderXCSRFToken},
-	// 	}))
-	// }
 
 	e.POST("api/account/signup", controllers.Register)
 	e.POST("api/account/login", controllers.Login)
