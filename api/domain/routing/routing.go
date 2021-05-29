@@ -2,6 +2,7 @@ package routing
 
 import (
 	"os"
+	"srb/config"
 	"srb/repositories/controllers"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -16,12 +17,19 @@ import (
 func Routing() {
 	e := echo.New()
 
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowCredentials: true,
-		// AllowOrigins:     []string{"http://localhost:5000"},
-		AllowOrigins: []string{os.Getenv("FLONT_URL")},
-		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderXCSRFToken},
-	}))
+	if os.Getenv("ENVIROMENT") == "production" {
+		e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+			AllowCredentials: true,
+			AllowOrigins:     []string{os.Getenv("FLONT_URL")},
+			AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderXCSRFToken},
+		}))
+	} else {
+		e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+			AllowCredentials: true,
+			AllowOrigins:     []string{config.Config.FlontUrl},
+			AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderXCSRFToken},
+		}))
+	}
 
 	e.POST("api/account/signup", controllers.Register)
 	e.POST("api/account/login", controllers.Login)
@@ -38,5 +46,9 @@ func Routing() {
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
-	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
+	if os.Getenv("ENVIROMENT") == "production" {
+		e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
+	} else {
+		e.Logger.Fatal(e.Start(":8082"))
+	}
 }
