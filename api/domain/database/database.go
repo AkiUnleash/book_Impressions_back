@@ -3,7 +3,6 @@ package database
 import (
 	"fmt"
 	"os"
-	"srb/config"
 	"srb/domain/models"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -21,21 +20,21 @@ func Connet() {
 	var PROTOCOL string
 	var DBNAME string
 
-	if os.Getenv("ENVIROMENT") == "production" {
-		// Heroku用
-		DBMS = os.Getenv("DB_HOST")
-		USER = os.Getenv("DB_USERNAME")
-		PASS = os.Getenv("DB_PASSWORD")
-		PROTOCOL = os.Getenv("DB_PROTOCOL")
-		DBNAME = os.Getenv("DB_NAME")
-	} else {
-		// ローカルで実行時に[Config.ini]を使用する場合。
-		DBMS = config.Config.Dbms
-		USER = config.Config.User
-		PASS = config.Config.Pass
-		PROTOCOL = config.Config.Protocol
-		DBNAME = config.Config.Dbname
-	}
+	// if os.Getenv("ENVIROMENT") == "production" {
+	// Heroku用
+	DBMS = os.Getenv("DB_HOST")
+	USER = os.Getenv("DB_USERNAME")
+	PASS = os.Getenv("DB_PASSWORD")
+	PROTOCOL = os.Getenv("DB_PROTOCOL")
+	DBNAME = os.Getenv("DB_NAME")
+	// } else {
+	// 	// ローカルで実行時に[Config.ini]を使用する場合。
+	// 	DBMS = config.Config.Dbms
+	// 	USER = config.Config.User
+	// 	PASS = config.Config.Pass
+	// 	PROTOCOL = config.Config.Protocol
+	// 	DBNAME = config.Config.Dbname
+	// }
 
 	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?parseTime=true"
 
