@@ -8,14 +8,12 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// @title JWT-login-example
+// @title book_Impressions_back
 // @version 1.0.0
-// @description API for login processing using JWT. Developed in Go langage.
-
+// @description API of software to describe impressions of books.
 // @license.name MIT
-// @license.url https://github.com/tcnksm/tool/blob/master/LICENCE
-
-// @host http://localhost:8081
+// @license.url https://opensource.org/licenses/MIT
+// @host Secret
 // @BasePath /
 func main() {
 	if os.Getenv("ENVIROMENT") != "production" {

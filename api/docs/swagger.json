@@ -1,53 +1,18 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "API for login processing using JWT. Developed in Go langage.",
-        "title": "JWT-login-example",
+        "description": "API of software to describe impressions of books.",
+        "title": "book_Impressions_back",
         "contact": {},
         "license": {
             "name": "MIT",
-            "url": "https://github.com/tcnksm/tool/blob/master/LICENCE"
+            "url": "https://opensource.org/licenses/MIT"
         },
         "version": "1.0.0"
     },
-    "host": "http://localhost:8081",
+    "host": "Secret",
     "basePath": "/",
     "paths": {
-        "/account/nowuser": {
-            "get": {
-                "description": "Browse Account table.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "account"
-                ],
-                "summary": "Show infomation about the currently logged in user.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.Account"
-                        }
-                    },
-                    "401": {
-                        "description": "401 unauthenticated",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "404": {
-                        "description": "404 Not Found",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
         "/api/account/login": {
             "post": {
                 "description": "JWT certification",
@@ -115,6 +80,101 @@
                 }
             }
         },
+        "/api/account/nowuser": {
+            "get": {
+                "description": "Browse Account table.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "Show infomation about the currently logged in user.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Account"
+                        }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Browse Account table.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "Updates information about the currently logged in user.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Account"
+                        }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Browse Account table.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "Deletes infomation about the currently logged in user.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Account"
+                        }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/account/signup": {
             "post": {
                 "description": "Use the account table.",
@@ -144,7 +204,7 @@
                 }
             }
         },
-        "/diary": {
+        "/api/impression/:id": {
             "get": {
                 "description": "Can be executed only at login.",
                 "consumes": [
@@ -154,9 +214,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "diary"
+                    "impression"
                 ],
-                "summary": "Processing to display diary",
+                "summary": "Display of impressions.",
                 "responses": {
                     "200": {
                         "description": "200 OK",
@@ -178,6 +238,101 @@
                     }
                 }
             },
+            "put": {
+                "description": "Can be executed only at login.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "impression"
+                ],
+                "summary": "Update of impressions.",
+                "responses": {
+                    "200": {
+                        "description": "200 OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Can be executed only at login.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "impression"
+                ],
+                "summary": "Delete impressions.",
+                "responses": {
+                    "200": {
+                        "description": "200 OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/impressions": {
+            "get": {
+                "description": "Can be executed only at login.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "impressions"
+                ],
+                "summary": "List of impressions",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Impression"
+                        }
+                    },
+                    "401": {
+                        "description": "401 unauthenticated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "Can be executed only at login.",
                 "consumes": [
@@ -187,9 +342,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "diary"
+                    "impressions"
                 ],
-                "summary": "Diary registratinon process.",
+                "summary": "impression registration process.",
                 "responses": {
                     "200": {
                         "description": "200 OK",
@@ -206,8 +361,8 @@
                 }
             }
         },
-        "/diary/:id": {
-            "delete": {
+        "/api/impressions/search/:bookid": {
+            "get": {
                 "description": "Can be executed only at login.",
                 "consumes": [
                     "application/json"
@@ -216,14 +371,14 @@
                     "application/json"
                 ],
                 "tags": [
-                    "diary"
+                    "impressions"
                 ],
-                "summary": "Process to delete diary.",
+                "summary": "Search for books using Bookid as a key.",
                 "responses": {
                     "200": {
-                        "description": "200 OK",
+                        "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/models.Impression"
                         }
                     },
                     "401": {
@@ -273,6 +428,9 @@
             "type": "object",
             "properties": {
                 "body": {
+                    "type": "string"
+                },
+                "bookid": {
                     "type": "string"
                 },
                 "booktitle": {

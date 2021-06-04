@@ -21,6 +21,8 @@ definitions:
     properties:
       body:
         type: string
+      bookid:
+        type: string
       booktitle:
         type: string
       create_at:
@@ -42,39 +44,16 @@ definitions:
       update_at:
         type: string
     type: object
-host: http://localhost:8081
+host: Secret
 info:
   contact: {}
-  description: API for login processing using JWT. Developed in Go langage.
+  description: API of software to describe impressions of books.
   license:
     name: MIT
-    url: https://github.com/tcnksm/tool/blob/master/LICENCE
-  title: JWT-login-example
+    url: https://opensource.org/licenses/MIT
+  title: book_Impressions_back
   version: 1.0.0
 paths:
-  /account/nowuser:
-    get:
-      consumes:
-      - application/json
-      description: Browse Account table.
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Account'
-        "401":
-          description: 401 unauthenticated
-          schema:
-            type: string
-        "404":
-          description: 404 Not Found
-          schema:
-            type: string
-      summary: Show infomation about the currently logged in user.
-      tags:
-      - account
   /api/account/login:
     post:
       consumes:
@@ -120,6 +99,69 @@ paths:
       summary: If the cookie exists, delete it.
       tags:
       - account
+  /api/account/nowuser:
+    delete:
+      consumes:
+      - application/json
+      description: Browse Account table.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Account'
+        "401":
+          description: 401 unauthenticated
+          schema:
+            type: string
+        "404":
+          description: 404 Not Found
+          schema:
+            type: string
+      summary: Deletes infomation about the currently logged in user.
+      tags:
+      - account
+    get:
+      consumes:
+      - application/json
+      description: Browse Account table.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Account'
+        "401":
+          description: 401 unauthenticated
+          schema:
+            type: string
+      summary: Show infomation about the currently logged in user.
+      tags:
+      - account
+    put:
+      consumes:
+      - application/json
+      description: Browse Account table.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Account'
+        "401":
+          description: 401 unauthenticated
+          schema:
+            type: string
+        "404":
+          description: 404 Not Found
+          schema:
+            type: string
+      summary: Updates information about the currently logged in user.
+      tags:
+      - account
   /api/account/signup:
     post:
       consumes:
@@ -139,48 +181,7 @@ paths:
       summary: Register Account infomation in the database.
       tags:
       - account
-  /diary:
-    get:
-      consumes:
-      - application/json
-      description: Can be executed only at login.
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 200 OK
-          schema:
-            type: string
-        "401":
-          description: 401 unauthenticated
-          schema:
-            type: string
-        "404":
-          description: 404 Not Found
-          schema:
-            type: string
-      summary: Processing to display diary
-      tags:
-      - diary
-    post:
-      consumes:
-      - application/json
-      description: Can be executed only at login.
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 200 OK
-          schema:
-            type: string
-        "401":
-          description: 401 unauthenticated
-          schema:
-            type: string
-      summary: Diary registratinon process.
-      tags:
-      - diary
-  /diary/:id:
+  /api/impression/:id:
     delete:
       consumes:
       - application/json
@@ -200,7 +201,111 @@ paths:
           description: 404 Not Found
           schema:
             type: string
-      summary: Process to delete diary.
+      summary: Delete impressions.
       tags:
-      - diary
+      - impression
+    get:
+      consumes:
+      - application/json
+      description: Can be executed only at login.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 200 OK
+          schema:
+            type: string
+        "401":
+          description: 401 unauthenticated
+          schema:
+            type: string
+        "404":
+          description: 404 Not Found
+          schema:
+            type: string
+      summary: Display of impressions.
+      tags:
+      - impression
+    put:
+      consumes:
+      - application/json
+      description: Can be executed only at login.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 200 OK
+          schema:
+            type: string
+        "401":
+          description: 401 unauthenticated
+          schema:
+            type: string
+        "404":
+          description: 404 Not Found
+          schema:
+            type: string
+      summary: Update of impressions.
+      tags:
+      - impression
+  /api/impressions:
+    get:
+      consumes:
+      - application/json
+      description: Can be executed only at login.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Impression'
+        "401":
+          description: 401 unauthenticated
+          schema:
+            type: string
+      summary: List of impressions
+      tags:
+      - impressions
+    post:
+      consumes:
+      - application/json
+      description: Can be executed only at login.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 200 OK
+          schema:
+            type: string
+        "401":
+          description: 401 unauthenticated
+          schema:
+            type: string
+      summary: impression registration process.
+      tags:
+      - impressions
+  /api/impressions/search/:bookid:
+    get:
+      consumes:
+      - application/json
+      description: Can be executed only at login.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Impression'
+        "401":
+          description: 401 unauthenticated
+          schema:
+            type: string
+        "404":
+          description: 404 Not Found
+          schema:
+            type: string
+      summary: Search for books using Bookid as a key.
+      tags:
+      - impressions
 swagger: "2.0"

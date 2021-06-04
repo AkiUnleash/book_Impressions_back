@@ -123,7 +123,8 @@ func Logout(c echo.Context) error {
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} models.Account
-// @Router /account/nowuser [get]
+// @failure 401 {string} string	"401 unauthenticated"
+// @Router /api/account/nowuser [get]
 func CurrentUser(c echo.Context) error {
 
 	// CookieからUIDを取得
@@ -142,7 +143,7 @@ func CurrentUser(c echo.Context) error {
 }
 
 // CurentUserUpdate
-// @Summary Show infomation about the currently logged in user.
+// @Summary Updates information about the currently logged in user.
 // @Description Browse Account table.
 // @tags account
 // @Accept  json
@@ -150,7 +151,7 @@ func CurrentUser(c echo.Context) error {
 // @Success 200 {object} models.Account
 // @failure 401 {string} string	"401 unauthenticated"
 // @failure 404 {string} string	"404 Not Found"
-// @Router /account/nowuser [get]
+// @Router /api/account/nowuser [put]
 func CurrentUserUpdate(c echo.Context) error {
 
 	// CookieからUIDを取得
@@ -181,7 +182,7 @@ func CurrentUserUpdate(c echo.Context) error {
 }
 
 // CurentUserDelete
-// @Summary Show infomation about the currently logged in user.
+// @Summary Deletes infomation about the currently logged in user.
 // @Description Browse Account table.
 // @tags account
 // @Accept  json
@@ -189,7 +190,7 @@ func CurrentUserUpdate(c echo.Context) error {
 // @Success 200 {object} models.Account
 // @failure 401 {string} string	"401 unauthenticated"
 // @failure 404 {string} string	"404 Not Found"
-// @Router /account/nowuser [get]
+// @Router /api/account/nowuser [delete]
 func CurrentUserDelete(c echo.Context) error {
 
 	// CookieからUIDを取得
