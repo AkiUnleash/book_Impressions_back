@@ -12,14 +12,14 @@ import (
 )
 
 // ImpressionsWrite
-// @Summary Diary registratinon process.
+// @Summary impression registration process.
 // @Description Can be executed only at login.
-// @tags diary
+// @tags impressions
 // @Accept  json
 // @Produce  json
 // @Success 200 {string} string	"200 OK"
 // @failure 401 {string} string	"401 unauthenticated"
-// @Router /diary [post]
+// @Router /api/impressions [post]
 func ImpressionsWrite(c echo.Context) error {
 
 	// パラメータのBodyからデータをBind
@@ -52,14 +52,14 @@ func ImpressionsWrite(c echo.Context) error {
 }
 
 // ImpressionsRead
-// @Summary Processing to display diary
+// @Summary List of impressions
 // @Description Can be executed only at login.
-// @tags diary
+// @tags impressions
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} models.Impression
 // @failure 401 {string} string	"401 unauthenticated"
-// @Router /diary [Get]
+// @Router /api/impressions [Get]
 func ImpressionsRead(c echo.Context) error {
 
 	// CookieからUIDを取得
@@ -75,15 +75,15 @@ func ImpressionsRead(c echo.Context) error {
 }
 
 // ImpressionRead
-// @Summary Processing to display diary
+// @Summary Display of impressions.
 // @Description Can be executed only at login.
-// @tags diary
+// @tags impression
 // @Accept  json
 // @Produce  json
 // @Success 200 {string} string	"200 OK"
 // @failure 401 {string} string	"401 unauthenticated"
 // @failure 404 {string} string	"404 Not Found"
-// @Router /diary [Get]
+// @Router /api/impression/:id [Get]
 func ImpressionRead(c echo.Context) error {
 
 	// CookieからUIDを取得
@@ -105,15 +105,15 @@ func ImpressionRead(c echo.Context) error {
 }
 
 // ImpressionDelete
-// @Summary Process to delete diary.
+// @Summary Delete impressions.
 // @Description Can be executed only at login.
-// @tags diary
+// @tags impression
 // @Accept  json
 // @Produce  json
 // @Success 200 {string} string	"200 OK"
 // @failure 401 {string} string	"401 unauthenticated"
 // @failure 404 {string} string	"404 Not Found"
-// @Router /diary/:id [Delete]
+// @Router /api/impression/:id [Delete]
 func ImpressionDelete(c echo.Context) error {
 	// CookieからUIDを取得
 	uid, err := middle.CurrentUserUid(c)
@@ -136,15 +136,15 @@ func ImpressionDelete(c echo.Context) error {
 }
 
 // ImpressionUpdate
-// @Summary Process to delete diary.
+// @Summary Update of impressions.
 // @Description Can be executed only at login.
-// @tags diary
+// @tags impression
 // @Accept  json
 // @Produce  json
 // @Success 200 {string} string	"200 OK"
 // @failure 401 {string} string	"401 unauthenticated"
 // @failure 404 {string} string	"404 Not Found"
-// @Router /diary/:id [Delete]
+// @Router /api/impression/:id [put]
 func ImpressionUpdate(c echo.Context) error {
 
 	// CookieからUIDを取得
@@ -179,14 +179,15 @@ func ImpressionUpdate(c echo.Context) error {
 }
 
 // ImpressionsSearch
-// @Summary Processing to display diary
+// @Summary Search for books using Bookid as a key.
 // @Description Can be executed only at login.
-// @tags diary
+// @tags impressions
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} models.Impression
 // @failure 401 {string} string	"401 unauthenticated"
-// @Router /diary [Get]
+// @failure 404 {string} string	"404 Not Found"
+// @Router /api/impressions/search/:bookid [Get]
 func ImpressionsSearch(c echo.Context) error {
 
 	// CookieからUIDを取得
