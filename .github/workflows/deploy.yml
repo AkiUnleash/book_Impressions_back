@@ -6,28 +6,50 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: Install dependencies
-      run: |
-        apt update
-        apt install -yV build-essential
+    # - name: Install dependencies
+    #   run: |
+    #     apt update
+    #     apt install -yV build-essential
 
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: env
+      env:
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_PROTOCOL: ${{ secrets.DB_PROTOCOL }}
+        DB_USERNAME: ${{ secrets.DB_USERNAME }}
+        ENVIROMENT: ${{ secrets.ENVIROMENT }}
+        FLONT_URL: ${{ secrets.FLONT_URL }}
+        JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+      run: |
+        echo DB_HOST=$DB_HOST > api/.env
+        echo DB_NAME=$DB_NAME >> api/.env
+        echo DB_PASSWORD=$DB_PASSWORD >> api/.env
+        echo DB_PROTOCOL=$DB_PROTOCOL >> api/.env
+        echo DB_USERNAME=$DB_USERNAME >> api/.env
+        echo FLONT_URL=$FLONT_URL >> api/.env
+        cat api/.env
 
     - name: Setup for integration test
       run: sudo npm install -g newman
 
     - name: Build the docker-compose stack # Docker Composeを実行
-      run: docker-compose -f docker-compose.yml up -d
+      run: docker-compose -f docker-compose-db.yml up -d
 
     - name: Sleep to wait for preparing of containers
-      run: sleep 30 # ポイント③
-    
-    # - name: http
-    #   run: curl 'http://localhost:8082/api/account/nowuser'
+      run: sleep 20
 
-    # - name: https
-    #   run: curl 'https://localhost:8083/api/account/nowuser'
+    - name: permission 
+      run: sudo chmod -R 755 mysql/data/*
+
+    - name: Build the docker-compose stack # Docker Composeを実行
+      run: docker-compose -f docker-compose-api.yml up -d
+
+    - name: Sleep to wait for preparing of containers
+      run: sleep 60
 
     - name: TEST RUN
       run: newman run ./tests/SRB_Auto.postman_collection.json --insecure 

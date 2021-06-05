@@ -1,4 +1,5 @@
 mysql/data
+mysql/data_backup
 api/config.ini
 api/go.sum
 tests/node_modules
