@@ -53,3 +53,8 @@ jobs:
 
     - name: TEST RUN
       run: newman run ./tests/SRB_Auto.postman_collection.json --insecure 
+
+    - name: Docker Down
+      run: |
+        docker-compose -f docker-compose-api.yml down
+        docker-compose -f docker-compose-db.yml down
