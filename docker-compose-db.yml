@@ -4,7 +4,7 @@ services:
     build: ./.docker/mysql/
     volumes:
       - ./mysql/init:/docker-entrypoint-initdb.d
-      - ./mysql/data:/var/lib/mysql
+      # - ./mysql/data:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=golang
     ports:
