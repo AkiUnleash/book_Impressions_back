@@ -1,4 +1,4 @@
-# 技術書籍感想文（仮）
+# 技術書籍感想文
 
 [https://book-impressions-flont.vercel.app/](https://book-impressions-flont.vercel.app/)
 
